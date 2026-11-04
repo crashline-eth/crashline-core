@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    name: Solidity (forge fmt, build, test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.8.3
+      - name: forge fmt --check
+        working-directory: contracts
+        run: forge fmt --check
+      - name: forge build
+        working-directory: contracts
+        run: forge build
+      - name: forge test # the Arbitrum One fork test skips without ARBITRUM_ONE_RPC
+        working-directory: contracts
+        run: forge test -vv
+
+  vectors:
+    name: Test vectors (Python twins)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # regenerate both vector files from the twins (standard library only) and require them unchanged
+      - name: perp_vectors.py (the fixing rule)
+        run: |
+          python tools/perp_vectors.py --out "$RUNNER_TEMP/perp_vectors.json"
+          cmp "$RUNNER_TEMP/perp_vectors.json" contracts/test/vectors/perp_vectors.json
+      - name: perp_formula.py (the closed form)
+        run: |
+          python tools/perp_formula.py --out "$RUNNER_TEMP/perp_formula_vectors.json"
+          cmp "$RUNNER_TEMP/perp_formula_vectors.json" contracts/test/vectors/perp_formula_vectors.json

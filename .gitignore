@@ -1,0 +1,12 @@
+# Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+.env
+contracts/.env
+# DeployPerp.s.sol writes deployments/<chainid>-perp.json; a local chain's stays out
+deployments/31337-perp.json
+
+# Python
+__pycache__/
+.venv/
