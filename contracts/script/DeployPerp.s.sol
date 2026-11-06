@@ -250,9 +250,9 @@ contract DeployPerp is Script {
         btcUsd = _fromEnv("BTC_USD", btcUsd);
     }
 
-    function recorderLimits(address sequencer) public pure returns (IPerpFactory.RecorderLimits memory) {
+    function recorderLimits(address sequencerFeed) public pure returns (IPerpFactory.RecorderLimits memory) {
         return IPerpFactory.RecorderLimits({
-            maxFixAge: MAX_FIX_AGE, priceMax: PRICE_MAX, sequencer: sequencer, sequencerGrace: SEQUENCER_GRACE
+            maxFixAge: MAX_FIX_AGE, priceMax: PRICE_MAX, sequencer: sequencerFeed, sequencerGrace: SEQUENCER_GRACE
         });
     }
 

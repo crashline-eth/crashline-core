@@ -54,6 +54,8 @@ contract PerpDeskTest is PerpDeskFixture {
     function test_config_and_the_fixtures_price() public view {
         assertEq(address(desk.factory()), address(factory));
         assertEq(address(desk.quoter()), address(quoter));
+        assertEq(desk.name(), "Crashline Desk"); // fixed in the bytecode (#107)
+        assertEq(desk.symbol(), "clDESK");
         assertEq(desk.asset(), address(usdc));
         assertEq(desk.decimals(), 12); // 6 + the inflation offset
         assertEq(desk.MAX_FEE_BPS(), 200);

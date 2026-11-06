@@ -870,7 +870,7 @@ contract PerpSeriesTest is PerpBase {
     }
 
     /// The FixingProcessed events `series` emitted since vm.recordLogs; it must have emitted no Closed.
-    function _fixingsWithoutClose(address series) internal returns (uint256 fixings) {
+    function _fixingsWithoutClose(address series) internal view returns (uint256 fixings) {
         Vm.Log[] memory logs = vm.getRecordedLogs();
         for (uint256 k = 0; k < logs.length; k++) {
             if (logs[k].emitter != series) continue;

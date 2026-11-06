@@ -47,7 +47,7 @@ the second; code the third.
 
 | App and product docs | Team and specs | Code |
 |---|---|---|
-| Protect | cover, the Protect side | COVER token (`cover()`); Desk `buyCover`, `sellCover` |
+| Protect; "your cover" for what you hold | cover, the Protect side | COVER token (`cover()`); Desk `buyCover`, `sellCover` |
 | Earn | NOTE, the Earn side | NOTE token (`note()`); Desk `buy`, `sell` |
 | series (product docs only, not in the app) | series: one set of terms, one USDC pot, one NOTE and one COVER token | `PerpSeries`, `PerpTerms`, `seriesId` |
 | new series | vintage: the same terms with a later `firstFixing` | `createSeries` (#37) |
@@ -353,9 +353,10 @@ interval, 3 its carry range, 4 0 or 1; excluded: the two fixing-band regions of 
 
 ## 8. The Desk (`PerpDesk`)
 
-An ERC-4626 vault on USDC. Its LPs fund a desk that sells and buys back NOTE and COVER around
-the quoter's price. What carries over unchanged is in the `IPerpDesk` and `IDeskQueue`
-comments: two prices from the vol band, fees, released cash, the risk budget, the LP queue.
+An ERC-4626 vault on USDC; its shares are "Crashline Desk" (clDESK). Its LPs fund a desk
+that sells and buys back NOTE and COVER around the quoter's price. What carries over
+unchanged is in the `IPerpDesk` and `IDeskQueue` comments: two prices from the vol band,
+fees, released cash, the risk budget, the LP queue.
 
 **Prices.** NOTE fair value from the quoter at the feed's vol −/+ `volBandBps` and the feed's
 carry; lo and hi

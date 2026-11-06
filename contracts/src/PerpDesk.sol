@@ -117,7 +117,7 @@ contract PerpDesk is IPerpDesk, IDeskQueue, ERC4626, Ownable, ReentrancyGuard {
         uint32 minSecs,
         MarketLimits memory limits,
         address keeper_
-    ) ERC20("Surrogate Pricer Perpetual Desk", "spPDESK") ERC4626(usdc) Ownable(owner_) {
+    ) ERC20("Crashline Desk", "clDESK") ERC4626(usdc) Ownable(owner_) {
         if (factory_.collateral() != address(usdc)) revert WrongAsset();
         factory = factory_;
         quoter = quoter_;
